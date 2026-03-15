@@ -3,9 +3,25 @@ package com.library.main;
 import com.library.model.Book;
 import com.library.model.Library;
 import com.library.model.Member;
+import com.library.util.DatabaseConnection;
+
+import java.sql.Connection;
+import java.sql.SQLException;
 
 public class Main {
     public static void main(String[] args) {
+
+        // Testa conexão com banco
+        System.out.println("=== TESTANDO CONEXÃO ===");
+        try (Connection conn = DatabaseConnection.getConnection()) {
+            if (conn != null) {
+                System.out.println("✅ Conexão com PostgreSQL estabelecida!");
+            }
+        } catch (SQLException e) {
+            System.out.println("❌ Erro ao conectar: " + e.getMessage());
+        }
+        System.out.println();
+
         // Cria biblioteca
         Library library = new Library("Biblioteca Central");
 
