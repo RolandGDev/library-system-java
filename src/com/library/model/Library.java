@@ -43,5 +43,36 @@ public class Library {
             System.out.println(member);
         }
     }
+    public Book findBookByTitle(String title) {
+        if (title == null || title.isBlank()) {
+            throw new IllegalArgumentException("Title cannot be null or blank");
+        }
+
+        // TODO: Percorrer lista de books
+        // TODO: Comparar title (ignora maiúsculas/minúsculas)
+        // TODO: Se encontrar, retorna o book
+        // TODO: Se não encontrar, retorna null
+        for (Book book : books) {
+            if (book.getTitle().equalsIgnoreCase(title)) {
+                return book;
+            }
+        }
+
+        return null; // Temporário
+    }
+    public boolean removeBook(int id) {
+        // TODO: Percorrer lista de books
+        // TODO: Comparar id
+        // TODO: Se encontrar, remove e retorna true
+        // TODO: Se não encontrar, retorna false
+       for(Book book : books){
+           if(book.getId() == id){
+               books.remove(book);
+               return true;
+           }
+       }
+
+        return false; // Temporário
+    }
 
 }

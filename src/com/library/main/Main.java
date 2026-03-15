@@ -26,6 +26,29 @@ public class Main {
         library.addMember(member1);
         library.addMember(member2);
 
+        // Testa busca
+        System.out.println("\n=== BUSCAR LIVRO ===");
+        Book found = library.findBookByTitle("clean code");
+        if (found != null) {
+            System.out.println("Encontrado: " + found);
+        } else {
+            System.out.println("Livro não encontrado");
+        }
+
+        // Testa remover
+        System.out.println("\n=== REMOVER LIVRO ===");
+        boolean removed = library.removeBook(2);
+        if (removed) {
+            System.out.println("Livro ID 2 removido!");
+        } else {
+            System.out.println("Livro não encontrado");
+        }
+
+        // Lista de novo para confirmar remoção
+        System.out.println("\n=== BOOKS APÓS REMOÇÃO ===");
+        library.listBooks();
+
+
         // Lista tudo
         System.out.println("\n=== BOOKS ===");
         library.listBooks();
