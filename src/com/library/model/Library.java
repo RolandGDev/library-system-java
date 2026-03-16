@@ -1,5 +1,11 @@
 package com.library.model;
 
+import com.library.util.DatabaseConnection;
+
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -73,6 +79,27 @@ public class Library {
        }
 
         return false; // Temporário
+    }
+
+    public void saveBook(Book book) throws SQLException {
+        String sql = "INSERT INTO books(title, author, isbn, available) VALUES (?, ?, ?, ?)";
+        // TODO: Criar Connection (usar DatabaseConnection.getConnection())
+        // TODO: Criar PreparedStatement com o SQL
+        // TODO: Setar os valores (?, ?, ?, ?)
+        // TODO: Executar executeUpdate()
+        // TODO: Imprimir confirmação
+       try(Connection conn = DatabaseConnection.getConnection();
+           PreparedStatement pstmt = conn.prepareStatement(sql)){
+           pstmt.setString(1, book.getTitle());
+           pstmt.setString(2, book.getAuthor());
+           pstmt.setString(3, book.getIsbn());
+           pstmt.setBoolean(4, book.isAvailable());
+           int rowsAffected = pstmt.executeUpdate();
+           System.out.println("Book saved! Rows Affected: " + rowsAffected);
+       }catch (SQLException e){
+           System.out.println("Error no insert" + e.getMessage());
+           throw e;// realanca a excecao pra quem chamou saber
+       }
     }
 
 }

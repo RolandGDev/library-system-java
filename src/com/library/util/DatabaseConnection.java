@@ -1,5 +1,8 @@
 package com.library.util;
 
+import org.postgresql.ds.PGSimpleDataSource;
+
+import javax.sql.DataSource;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -32,7 +35,12 @@ public class DatabaseConnection {
         String username = props.getProperty("db.user");
         String password = props.getProperty("db.password");
 
-        return DriverManager.getConnection(url, username, password);
+        PGSimpleDataSource ds = new PGSimpleDataSource();
+        ds.setURL(url);
+        ds.setUser(username);
+        ds.setPassword(password);
+
+        return ds.getConnection();
     }
 }
 
