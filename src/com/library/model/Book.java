@@ -1,5 +1,12 @@
 package com.library.model;
 
+import com.library.util.DatabaseConnection;
+
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+
 public class Book {
     private static  int uid = 0;
     private int id;
@@ -7,6 +14,7 @@ public class Book {
     private String author;
     private String isbn;
     private boolean available;
+
 
     // Construtor completo
     public Book(String title, String author, String isbn, boolean available) {
@@ -32,6 +40,14 @@ public class Book {
     public Book( String title, String author, String isbn) {
         this(title, author, isbn, true);
     }
+
+    public Book(int id, String title, String author, String isbn, boolean available) {
+        this(title, author, isbn, available);
+        this.id = id;
+
+    }
+
+
 
 
     // Getters

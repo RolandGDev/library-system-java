@@ -23,6 +23,54 @@ public class Library {
         this.members = new ArrayList<>();
     }
 
+    public void loadBooks() throws SQLException {
+        this.books.clear();
+        String sql = "SELECT id, title, author, isbn, available FROM books";
+
+        try (Connection conn = DatabaseConnection.getConnection();
+             PreparedStatement pstmt = conn.prepareStatement(sql);
+             ResultSet rs = pstmt.executeQuery()) {  // ← SELECT usa executeQuery()!
+
+            // TODO: Percorrer ResultSet
+            // TODO: Para cada linha, criar Book
+            // TODO: Adicionar à lista book
+            while (rs.next()) {
+                int id = rs.getInt("id");
+                String title = rs.getString("title");
+                String author = rs.getString("author");
+                String isbn = rs.getString("isbn");
+                boolean available = rs.getBoolean("available");
+                Book book = new Book(id,title,author,isbn,available );
+                this.books.add(book);
+
+            }
+            System.out.println("✅ " + books.size() + " livros carregados!");
+        }
+    }
+
+    public Book findBookById(int id) throws SQLException {
+        String sql = "SELECT id, title, author, isbn, available FROM books WHERE id = ?";
+
+        // TODO: Sua implementação aqui
+        try (Connection conn = DatabaseConnection.getConnection();
+            PreparedStatement pstmt = conn.prepareStatement(sql);){
+            pstmt.setInt(1, id);
+
+            try(ResultSet rs = pstmt.executeQuery();) {
+                if (rs.next()) {
+                    int BookId = rs.getInt("id");
+                    String title = rs.getString("title");
+                    String author = rs.getString("author");
+                    String isbn = rs.getString("isbn");
+                    boolean available = rs.getBoolean("available");
+                    return new Book(BookId,title,author,isbn,available);
+                }
+                return null;
+            }
+
+        }
+    }
+
     // TODO: Adicionar métodos aqui
     public void addBook(Book book) {
         if(book == null){
