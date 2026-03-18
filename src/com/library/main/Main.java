@@ -53,6 +53,22 @@ public class Main {
                 System.out.println("❌ Livro não encontrado!");
             }
 
+            // 7. Testa UPDATE - Emprestar livro
+            System.out.println("\n📤 Emprestando livro ID 1 (marcando como indisponível)...");
+            library.updateBookAvailability(1, false);
+
+// 8. Busca livro para verificar mudança
+            Book borrowed = library.findBookById(1);
+            System.out.println("Status atual: " + borrowed);
+
+// 9. Devolve livro
+            System.out.println("\n📥 Devolvendo livro ID 1 (marcando como disponível)...");
+            library.updateBookAvailability(1, true);
+
+// 10. Verifica novamente
+            Book returned = library.findBookById(1);
+            System.out.println("Status atual: " + returned);
+
 
         } catch (SQLException e) {
             System.out.println("❌ Erro: " + e.getMessage());

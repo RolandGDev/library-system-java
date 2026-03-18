@@ -23,6 +23,24 @@ public class Library {
         this.members = new ArrayList<>();
     }
 
+    public void updateBookAvailability(int id, boolean available) throws SQLException {
+        String sql = "UPDATE books SET available = ? WHERE id = ?";
+
+        // TODO: Sua implementação
+        try (Connection conn = DatabaseConnection.getConnection();
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+            // TODO: Setar os 2 parâmetros (?, ?)
+            // TODO: executeUpdate()
+            // TODO: Imprimir confirmação
+            pstmt.setBoolean(1, available);
+            pstmt.setInt(2, id);
+            int rows = pstmt.executeUpdate();
+            System.out.println("Book availability updated: " + rows);
+        }catch (SQLException e){
+            e.printStackTrace();
+        }
+    }
+
     public void loadBooks() throws SQLException {
         this.books.clear();
         String sql = "SELECT id, title, author, isbn, available FROM books";
