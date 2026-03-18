@@ -23,6 +23,20 @@ public class Library {
         this.members = new ArrayList<>();
     }
 
+    public int deleteBook(int id) throws SQLException {
+        String query = "DELETE FROM books WHERE id = ?";
+
+        try (Connection conn = DatabaseConnection.getConnection();
+        PreparedStatement ps = conn.prepareStatement(query)) {
+            ps.setInt(1, id);
+            int res = ps.executeUpdate();
+            System.out.printf("Deleted Book with id: %d , row effected: %d\n", id, res);
+            return res;
+        } catch (SQLException e) {
+            throw e;
+        }
+    }
+
     public void updateBookAvailability(int id, boolean available) throws SQLException {
         String sql = "UPDATE books SET available = ? WHERE id = ?";
 

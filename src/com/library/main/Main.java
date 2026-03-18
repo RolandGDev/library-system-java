@@ -69,6 +69,15 @@ public class Main {
             Book returned = library.findBookById(1);
             System.out.println("Status atual: " + returned);
 
+            // 11. Deleta livro duplicado
+            System.out.println("\n🗑️ Deletando livro ID 5...");
+            int deleted = library.deleteBook(5);
+
+// 12. Lista todos para verificar
+            System.out.println("\n=== LIVROS APÓS DELETE ===");
+            library.loadBooks();
+            library.listBooks();
+
 
         } catch (SQLException e) {
             System.out.println("❌ Erro: " + e.getMessage());
